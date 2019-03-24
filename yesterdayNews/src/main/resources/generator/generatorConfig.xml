@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--导入属性配置-->
+    <properties resource="configs.properties"></properties>
+
+    <!-- context 是逆向工程的主要配置信息 -->
+    <!-- id：起个名字 -->
+    <!-- targetRuntime：设置生成的文件适用于那个 mybatis 版本 -->
+    <context id="default" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码-->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!--创建class时，对注释进行控制 type重写的实现类的路径-->
+        <commentGenerator type="com.yn.common.util.GeneratorStart"/>
+
+        <!--jdbc的数据库连接-->
+        <jdbcConnection driverClass="${jdbcDriver}"
+                        connectionURL="${jdbcUrl}"
+                        userId="${jdbcUser}"
+                        password="${jdbcPassword}">
+        </jdbcConnection>
+
+        <!--非必须，类型处理器，在数据库类型和java类型之间的转换控制-->
+        <javaTypeResolver>
+            <!--
+                true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+                false：默认,
+                   scale>0;length>18：使用BigDecimal;
+                   scale=0;length[10,18]：使用Long；
+                   scale=0;length[5,9]：使用Integer；
+                   scale=0;length<5：使用Short；
+                     -->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+
+        <!-- targetPackage 和 targetProject：生成的 class实体类 文件的包和位置 -->
+        <javaModelGenerator targetPackage="com.yn.sys.entity.template"
+                            targetProject=".\src\main\java">
+            <!-- 是否允许子包,根据数据库的schema再生成一层package -->
+            <property name="enableSubPackages" value="false" />
+            <!-- 是否添加构造函数,构造方法包含了所有的field -->
+            <property name="constructorBased" value="false" />
+            <!-- 是否清理从数据库中查询出的字符串左右两边的空白字符 -->
+            <property name="trimStrings" value="true" />
+            <!-- 建立pojo对象是否不可改变 即生成的pojo对象不会有setter方法，只有构造方法 -->
+            <property name="immutable" value="false" />
+            <!-- 设置一个根对象，
+            如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项
+            注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：
+               1，属性名相同，类型相同，有相同的getter/setter方法；
+            <property name="rootClass" value="cn.admin.sms.core.BaseDomain"/>
+            -->
+        </javaModelGenerator>
+
+        <!-- targetPackage 和 targetProject：生成的 mapper 文件的包和位置 -->
+        <sqlMapGenerator targetPackage="mapper\template"
+                         targetProject=".\src\main\resources">
+            <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!-- targetPackage 和 targetProject：生成的 dao 文件的包和位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.yn.sys.dao.template" targetProject=".\src\main\java">
+            <!-- 针对 oracle 数据库的一个配置，是否把 schema 作为字包名 -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+
+        <!-- tableName:表名
+             domainObjectName:bean类名
+             mapperName:mapper文件名及dao文件名
+             enable****ByExample:sql语句模板
+        -->
+        <table tableName="sys_article" domainObjectName="Article"  mapperName="ArticleDaoTemplate">
+            <!--类属性名小驼峰-->
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="sys_configs" domainObjectName="Configs"  mapperName="ConfigsDaoTemplate">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="sys_dept" domainObjectName="Dept"  mapperName="DeptDaoTemplate">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="sys_logs" domainObjectName="Logs"  mapperName="LogsDaoTemplate">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="sys_menus" domainObjectName="Menus"  mapperName="MenusDaoTemplate">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="sys_role_menus" domainObjectName="RoleMenus"  mapperName="RoleMenusDaoTemplate">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="sys_roles" domainObjectName="Roles"  mapperName="RolesDaoTemplate">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="sys_user" domainObjectName="User"  mapperName="UserDaoTemplate">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="sys_user_roles" domainObjectName="UserRoles"  mapperName="RolesDaoTemplate">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="user_information" domainObjectName="Information"  mapperName="InformationDaoTemplate">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="message" domainObjectName="Message"  mapperName="MessageDaoTemplate">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
+
+<!-- https://blog.csdn.net/isea533/article/details/42102297  Mybatis-Generator配置详解-->
