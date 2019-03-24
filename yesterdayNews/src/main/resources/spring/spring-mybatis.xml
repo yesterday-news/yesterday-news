@@ -35,7 +35,7 @@
         <!--配置包中的类的别名-->
         <!--<property name="typeAliasesPackage" value="com.db.sys.entity"/>-->
         <!--设置mapper文件的位置-->
-        <property name="mapperLocations" value="classpath*:mapper/user/*.xml"/>
+        <property name="mapperLocations" value="classpath*:mapper/**/*.xml"/>
     </bean>
     <!-- 通过此bean对象扫描指定包下的dao接口，并基于接口创建其实现类对象(代理对象)
      1)系统底层会基于dao接口创建接口的实现类对象
